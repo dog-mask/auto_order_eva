@@ -1,10 +1,61 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-hello
+
+<table>
+    <tr>
+        <td>제품코드</td>
+        <td> </td>
+        <td>제품명</td>
+        <td> </td>
+        <td>재고</td>
+        <td> </td>
+        <td>지난주문</td>
+    </tr>
+<tr th:each="list : ${productList}">
+
+    <td th:text="${list.getId()}"></td>
+    <td> </td>
+    <td th:text="${list.getName()}"></td>
+    <td> </td>
+    <td th:id="|quan${list.getId()}|" th:text="${list.getQuantity()}"></td>
+    <td> </td>
+    <td th:text="${list.getOrderQuantity()}"></td>
+    <td> </td>
+    <td><span th:onclick="|javascript : pop(${list.getId()})|">재고 차감</span></td>
+    <td> </td>
+    <td> <span th:onclick="|javascript : add(${list.getId()})|">재고 증가</span></td>
+</tr>
+</table>
+
+<script>
+function pop(idx){
+    console.log(idx)
+    let form = {
+    id : idx
+    }
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+    console.log(this.readyState)
+    console.log(this.status)
+        if(this.readyState == this.DONE && this.status == 200){
+            console.log(idx)
+            console.log(JSON.parse(this.responseText));
+            document.getElementById('quan'+idx).innerHTML = JSON.parse(this.responseText);
+        }
+    };
+    xhr.open("POST","/pop");
+    xhr.setRequestHeader("Content-Type","application/json");
+    xhr.send(JSON.stringify(form));
+}
+
+function add(idx){
+console.log(idx)
+}
+</script>
 </body>
 </html>

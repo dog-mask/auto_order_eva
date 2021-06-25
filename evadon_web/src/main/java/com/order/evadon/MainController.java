@@ -19,6 +19,7 @@ public class MainController {
 
         model.addAttribute("productList",productRepository.findAll(Sort.by(Sort.Direction.ASC, "id")));
 
+
         return "index";
     }
 }
