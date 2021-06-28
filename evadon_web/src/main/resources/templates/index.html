@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>EVADON auto order system</title>
 </head>
 <body>
 
@@ -34,18 +34,15 @@
 
 <script>
 function pop(idx){
-    console.log(idx)
     let form = {
     id : idx
     }
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
-    console.log(this.readyState)
-    console.log(this.status)
         if(this.readyState == this.DONE && this.status == 200){
-            console.log(idx)
-            console.log(JSON.parse(this.responseText));
+
             document.getElementById('quan'+idx).innerHTML = JSON.parse(this.responseText);
+
         }
     };
     xhr.open("POST","/pop");
@@ -54,7 +51,20 @@ function pop(idx){
 }
 
 function add(idx){
-console.log(idx)
+    let form = {
+    id : idx
+    }
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(this.readyState == this.DONE && this.status == 200){
+
+            document.getElementById('quan'+idx).innerHTML = JSON.parse(this.responseText);
+
+        }
+    };
+    xhr.open("POST","/add");
+    xhr.setRequestHeader("Content-Type","application/json");
+    xhr.send(JSON.stringify(form));
 }
 </script>
 </body>

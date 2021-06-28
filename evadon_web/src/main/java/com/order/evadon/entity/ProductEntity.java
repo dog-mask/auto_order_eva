@@ -17,4 +17,6 @@ public class ProductEntity {
     String name;
     int quantity;
     int orderQuantity;
+    String order_code;
+    int oneday_need;
 }
