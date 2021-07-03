@@ -99,4 +99,6 @@ for product in db_data:
 
 
 
+driver.find_element_by_id("ctl00_Order_holder_Btn_save").click()
+
 
