@@ -1,6 +1,5 @@
 drop database if exists EVADON;
 create database EVADON default charset=utf8 collate=utf8_bin;
-
 use EVADON;
 drop table if exists product;
 create table product (

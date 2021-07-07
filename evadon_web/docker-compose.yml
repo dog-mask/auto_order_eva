@@ -1,18 +1,19 @@
 version: "3.0"
 services:
   db:
-    image: mysql:11
+    image: mysql:8
     environment:
       MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: EVADON
       MYSQL_USER: sa
       MYSQL_PASSWORD: sa
-      MYSQL_DATABASE: EVADON
     ports:
       - 3306:3306
-  service-a:
+  evadon-auto:
     build: .
-    restart: on-failure
-    links:
-      - db
+    ports:
+      - 8080:8080
+    restart: always
     depends_on:
       - db
