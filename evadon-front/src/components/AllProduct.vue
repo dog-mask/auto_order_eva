@@ -1,28 +1,26 @@
 <template>
     <div>
-    <b-table striped dark hover :items="items" :fields="fields" >
+    <b-table striped dark hover :items="items" :fields="fields">
         <template #cell(mody_quantity)>
             <b-row>
-            <b-col>
-            <b-button size="sm" class="mr-2">
-                +
-            </b-button>
-            </b-col>
-            <b-col>
-            <b-button size="sm" class="mr-2">
-                -
-            </b-button>
-            </b-col>
+                <b-col>
+                    <b-button size="sm" class="mr-2" @click="addQuantity">
+                        +
+                    </b-button>
+                </b-col>
+                <b-col>
+                    <b-button size="sm" class="mr-2" @click="popQuantity">
+                        -
+                    </b-button>
+                </b-col>
             </b-row>
         </template>
-    </b-table>
-
-    
-  </div>
+    </b-table>   
+    </div>
 </template>
 
 <script>
-import {getAllProduct} from '../service'
+import {getAllProduct,popQuantity,addQuantity} from '../service'
 export default {
     
     name: 'AllProduct',
@@ -30,6 +28,10 @@ export default {
     data(){
         return{
             fields:[
+                {
+                    key: 'id',
+                    label: 'index'
+                },
                 {
                     key: 'name',
                     label: '품명'
@@ -48,9 +50,40 @@ export default {
     },
     async created(){
         const ret = await getAllProduct()
-        console.log(ret)
         this.items = ret.data
-        console.log(this.items)
+    },
+    methods: {
+        popQuantity(event){
+            const items = this.items
+            const index = event.target.parentNode.parentNode.parentNode.parentNode.children[0].innerText
+            const quan = event.target.parentNode.parentNode.parentNode.parentNode.children[2]
+            const selectedRow = items[index-1]
+
+            const res = popQuantity(selectedRow)
+            if(res<0){
+                alert("실패")
+            }else{
+               let quantity = Number(quan.innerText)
+               if(quantity>0){
+               quan.innerText=quantity-1
+               }
+            }
+        },
+        addQuantity(event){
+            const items = this.items
+            const index = event.target.parentNode.parentNode.parentNode.parentNode.children[0].innerText
+            const quan = event.target.parentNode.parentNode.parentNode.parentNode.children[2]
+            const selectedRow = items[index-1]
+
+            const res = addQuantity(selectedRow)
+            if(res<0){
+                alert("실패")
+            }else{
+               let quantity = Number(quan.innerText)
+               quan.innerText=quantity+1
+            }
+
+        }
     }
     
 }

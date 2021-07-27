@@ -1,0 +1,29 @@
+version: "3.0"
+services:
+  db:
+    image: mysql:8
+    cap_add:
+      - SYS_NICE
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: EVADON
+      MYSQL_USER: sa
+      MYSQL_PASSWORD: sa
+    expose:
+      - "3306"
+    volumes:
+      - /var/lib/mysql/:/var/lib/mysql/
+  evadon-server:
+    build: "./evadon_web/"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    command: ["./wait-for-it.sh", "db:3306"]
+  evadon-front:
+    build: "./evadon-front/"
+    ports:
+      - "8081:8081"
+    depends_on:
+      - evadon-server

@@ -1,3 +1,4 @@
+com/order/evadon/WebConfig.class
 com/order/evadon/QuanDTO.class
 com/order/evadon/repository/ProductRepository.class
 com/order/evadon/EvadonApplication.class

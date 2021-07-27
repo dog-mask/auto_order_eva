@@ -1,6 +1,8 @@
 INSERT INTO product (name,order_code,oneday_need)
 	   	    VALUE('쫄면소스',"06523",2);
 INSERT INTO product (name,order_code,oneday_need)
+	   	    VALUE('참깨드레싱',"6546",2);
+INSERT INTO product (name,order_code,oneday_need)
 	   	    VALUE('우동원액',"06503",2);
 INSERT INTO product (name,order_code,oneday_need)
 	   	    VALUE('돈까스소스',"06529",4);

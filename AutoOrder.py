@@ -12,6 +12,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 import requests
     
 
+host = "http://34.64.252.46:8080"
+
 # 수발주 사이트 자동로그인 로직
 URL = 'https://subalju.com/default.aspx'
 
@@ -55,7 +57,7 @@ driver.switch_to_window(driver.window_handles[0])
 
 
 # 재고목록 불러오기
-db_response = requests.post("http://localhost:8080/get_db")
+db_response = requests.post(host+"/get_db")
 db_data = db_response.json()
 
 code1 = 2
@@ -64,13 +66,21 @@ element_id = 'ctl00_Order_holder_GV_ctl02_txt_stock_code02'
 quantity_input_id = 'ctl00_Order_holder_GV_ctl02_txt_qty02'
 
 
-for product in db_data:
+for product in db_data: 
 # 주문수량 = (1일 평균 사용량) * 4 - 현재 재고    
-    order_count = (product["oneday_need"]*4)-product["quantity"]
+    order_count = (product["onedayNeed"]*4)-product["quantity"]
+    # 만약 우동면 주문량이 4개 이상이라면 1박스 주문
+    if(product["id"]==5):
+        if(order_count >= 4):
+            order_count = 1
+    # 만약 통모짜 재고가 10개 이하면 1박스 주문
+    if(product["id"]==11):
+        if(product["quantity"] < 10):
+            order_count = 1
 # 4일 평균 사용량보다 현재 재고수량이 작으면 주문실행
     if(order_count > 0):
 # 주문코드 입력
-        order_code = product['order_code']
+        order_code = product['orderCode']
         elem = driver.find_element_by_id(element_id)
         elem.send_keys(order_code)
         elem.send_keys(Keys.RETURN)
