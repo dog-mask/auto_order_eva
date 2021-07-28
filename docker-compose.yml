@@ -24,6 +24,6 @@ services:
   evadon-front:
     build: "./evadon-front/"
     ports:
-      - "8081:8081"
+      - "80:80"
     depends_on:
       - evadon-server
