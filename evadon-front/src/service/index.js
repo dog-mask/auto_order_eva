@@ -1,6 +1,6 @@
 import axios from 'axios';
-const host = "http://localhost"
-// const host = "http://34.64.252.46"
+// const host = "http://localhost"
+const host = "http://34.64.252.46"
 const port = ":8080"
 
 export const getAllProduct = ()=>{
