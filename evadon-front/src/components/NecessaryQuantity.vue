@@ -4,12 +4,12 @@
         <template #cell(mody_quantity)>
             <b-row>
                 <b-col>
-                    <b-button size="sm" class="mr-2" @click="addOnedayNeed">
+                    <b-button size="sm" class="mr-2" @click="addNecessaryQuantity">
                         +
                     </b-button>
                 </b-col>
                 <b-col>
-                    <b-button size="sm" class="mr-2" @click="popOnedayNeed">
+                    <b-button size="sm" class="mr-2" @click="popNecessaryQuantity">
                         -
                     </b-button>
                 </b-col>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import {getAllProduct,popOnedayNeed,addOnedayNeed} from '../service'
+import {getAllProduct,popNecessaryQuantity,addNecessaryQuantity} from '../service'
 export default {
     
     name: 'AllProduct',
@@ -37,12 +37,12 @@ export default {
                     label: '품명'
                 },
                 {
-                    key: 'onedayNeed',
-                    label: '일사용량'
+                    key: 'necessaryQuantity',
+                    label: '필요재고'
                 },
                 {
                     key: 'mody_quantity',
-                    label: '사용량수정'
+                    label: '필요재고량 수정'
                 }
             ],
             items: [],
@@ -53,13 +53,13 @@ export default {
         this.items = ret.data
     },
     methods: {
-        popOnedayNeed(event){
+        popNecessaryQuantity(event){
             const items = this.items
             const index = event.target.parentNode.parentNode.parentNode.parentNode.children[0].innerText
             const onedayNeed = event.target.parentNode.parentNode.parentNode.parentNode.children[2]
             const selectedRow = items[index-1]
 
-            const res = popOnedayNeed(selectedRow)
+            const res = popNecessaryQuantity(selectedRow)
             if(res<0){
                 alert("실패")
             }else{
@@ -69,13 +69,13 @@ export default {
                }
             }
         },
-        addOnedayNeed(event){
+        addNecessaryQuantity(event){
             const items = this.items
             const index = event.target.parentNode.parentNode.parentNode.parentNode.children[0].innerText
             const onedayNeed = event.target.parentNode.parentNode.parentNode.parentNode.children[2]
             const selectedRow = items[index-1]
 
-            const res = addOnedayNeed(selectedRow)
+            const res = addNecessaryQuantity(selectedRow)
             if(res<0){
                 alert("실패")
             }else{

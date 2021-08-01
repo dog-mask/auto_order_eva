@@ -9,7 +9,8 @@
       <b-navbar-nav>
         <b-nav-item to="/hall">홀</b-nav-item>
         <b-nav-item to="/cook">주방</b-nav-item>
-        <b-nav-item to="/options">설정</b-nav-item>
+        <b-nav-item to="/oneday_need">일사용량 수정</b-nav-item>
+        <b-nav-item to="/necessary_quantity">필요재고량 수정</b-nav-item>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>

@@ -10,15 +10,19 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
 import requests
+import os
     
 
 host = "http://34.64.252.46:8080"
+# host = "http://localhost:8080"
 
 # 수발주 사이트 자동로그인 로직
 URL = 'https://subalju.com/default.aspx'
+driverPath = os.getcwd()
+print("path : "+driverPath)
 
 # 크롬 웹드라이버 파일 호출
-driver = webdriver.Chrome(executable_path='/Users/bong/Downloads/auto_order/chromedriver')
+driver = webdriver.Chrome(executable_path=driverPath+'/chromedriver')
 driver.get(url=URL)
 
 # 로그인 정보 입력
@@ -68,17 +72,32 @@ quantity_input_id = 'ctl00_Order_holder_GV_ctl02_txt_qty02'
 
 for product in db_data: 
 # 주문수량 = (1일 평균 사용량) * 4 - 현재 재고    
-    order_count = (product["onedayNeed"]*4)-product["quantity"]
-    # 만약 우동면 주문량이 4개 이상이라면 1박스 주문
+    order_count = (product["necessaryQuantity"])-product["quantity"]
+    # 우동면을 8로 나눈 몫이 박스단위의 현재 재고이므로 총 4박스의 재고를 만들게끔 발주
     if(product["id"]==5):
-        if(order_count >= 4):
+        if(product["quantity"] / 8 == 0):
+            order_count = 4
+        elif(product["quantity"] / 8 == 1):
+            order_count = 3
+        elif(product["quantity"] / 8 == 2):
+            order_count = 2
+        elif(product["quantity"] / 8 == 3 and product["quantity"] % 8 > 8):
             order_count = 1
-    # 만약 통모짜 재고가 10개 이하면 1박스 주문
+        # elif(product["quantity"] / 8 == 4):
+        #     order_count = 0
+    # 통모짜를 6으로 나눈 몫이 박스단위의 현재 재고이므로 총 2박스의 재고를 만들게끔 발주
     if(product["id"]==11):
-        if(product["quantity"] < 10):
-            order_count = 1
-# 4일 평균 사용량보다 현재 재고수량이 작으면 주문실행
+        if(product["quantity"] / 6 == 0):
+            order_count = 2
+        elif(product["quantity"] / 6 == 1 and product["quantity"] % 6 > 6):
+            order_count = 1  
+        # elif(product["quantity"] / 6 == 2):
+        #     order_count = 0
+# 목표재고량보다 현재 재고수량이 적으면 주문실행
+    if(order_count <= 0):
+        requests.post(host+"/init-order-count",json={"id":product["id"],"orderQuantity":0})
     if(order_count > 0):
+        requests.post(host+"/init-order-count",json={"id":product["id"],"orderQuantity":order_count})
 # 주문코드 입력
         order_code = product['orderCode']
         elem = driver.find_element_by_id(element_id)
@@ -109,6 +128,6 @@ for product in db_data:
 
 
 
-driver.find_element_by_id("ctl00_Order_holder_Btn_save").click()
+# driver.find_element_by_id("ctl00_Order_holder_Btn_save").click()
 
 

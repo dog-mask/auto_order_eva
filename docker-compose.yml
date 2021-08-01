@@ -13,7 +13,7 @@ services:
     expose:
       - "3306"
     volumes:
-      - /var/lib/mysql/:/var/lib/mysql/
+      - /Users/bong/desktop/mysql:/var/lib/mysql/
   evadon-server:
     build: "./evadon_web/"
     ports:

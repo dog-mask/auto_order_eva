@@ -37,6 +37,10 @@ export default {
                     label: '품명'
                 },
                 {
+                    key: 'orderQuantity',
+                    label: '주문수량'
+                },
+                {
                     key: 'quantity',
                     label: '재고수량'
                 },

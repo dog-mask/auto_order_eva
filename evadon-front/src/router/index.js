@@ -3,7 +3,8 @@ import Router from 'vue-router'
 import AllProduct from '@/components/AllProduct'
 import HallProduct from '@/components/HallProduct'
 import CookProduct from '@/components/CookProduct'
-import Options from '@/components/Options'
+import OnedayNeed from '@/components/OnedayNeed'
+import NecessaryQuantity from '@/components/NecessaryQuantity'
 
 Vue.use(Router)
 
@@ -25,9 +26,14 @@ export default new Router({
       component : CookProduct
     },
     {
-      path: '/options',
-      name: 'options',
-      component : Options
+      path: '/oneday_need',
+      name: 'onedayNeed',
+      component : OnedayNeed
+    },
+    {
+      path: '/necessary_quantity',
+      name: 'necessaryQuantity',
+      component : NecessaryQuantity
     },
   ]
 })

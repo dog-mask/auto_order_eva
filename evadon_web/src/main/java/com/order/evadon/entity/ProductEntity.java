@@ -18,5 +18,6 @@ public class ProductEntity {
     int quantity;
     int orderQuantity;
     String orderCode;
-    int onedayNeed;
+    double onedayNeed;
+    int necessaryQuantity;
 }

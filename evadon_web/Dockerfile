@@ -1,5 +1,9 @@
 FROM adoptopenjdk/openjdk11
-COPY target/evadon-*.jar app.jar
+COPY . .
+RUN apt update && apt install maven -y
+RUN mvn clean package
+FROM openjdk:11-jre-slim
+COPY --from=0 target/evadon-*.jar app.jar
 COPY ./docker-entrypoint.sh docker-entrypoint.sh
 RUN apt-get update && apt-get install netcat-openbsd -y
 RUN chmod +x docker-entrypoint.sh

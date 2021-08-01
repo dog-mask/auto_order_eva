@@ -6,5 +6,7 @@ import lombok.Setter;
 @Getter@Setter
 public class QuanDTO {
 
-    private int id = 50;
+    private int id;
+    private int orderQuantity;
+    private int necessaryQuantity;
 }
