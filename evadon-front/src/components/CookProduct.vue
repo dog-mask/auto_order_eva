@@ -28,7 +28,7 @@ export default {
     name: 'HallProduct',
     data(){
         return{
-            hallId:[1,2,3,4,14,15,27,28,29,38,39,40,41,44,45,46,47],
+            hallId:[1,2,3,4,14,15,27,28,29,38,39,40,41,44,45,46,47,48],
             fields:[
                 {
                     key: 'id',

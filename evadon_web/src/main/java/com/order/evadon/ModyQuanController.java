@@ -160,4 +160,12 @@ public class ModyQuanController {
 
         return result;
     }
+
+    @PostMapping("/add-product")
+    public void addProduct(@RequestBody QuanDTO quanDTO) {
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setName(quanDTO.getName());
+        productEntity.setOrderCode(quanDTO.getCode());
+        productRepository.save(productEntity);
+    }
 }

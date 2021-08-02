@@ -24,3 +24,6 @@ export const popNecessaryQuantity = (selectedRow) => {
 export const addNecessaryQuantity = (selectedRow) => {
     return axios.post(host+port+"/add-necessary-quantity",selectedRow)
 }
+export const addProduct = (item) => {
+    return axios.post(host+port+"/add-product",item)
+}

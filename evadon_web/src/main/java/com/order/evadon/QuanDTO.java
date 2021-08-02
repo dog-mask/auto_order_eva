@@ -9,4 +9,6 @@ public class QuanDTO {
     private int id;
     private int orderQuantity;
     private int necessaryQuantity;
+    private String name;
+    private String code;
 }
