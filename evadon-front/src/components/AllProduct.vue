@@ -76,7 +76,7 @@ export default {
         addQuantity(event){
             const items = this.items
             const index = event.target.parentNode.parentNode.parentNode.parentNode.children[0].innerText
-            const quan = event.target.parentNode.parentNode.parentNode.parentNode.children[2]
+            const quan = event.target.parentNode.parentNode.parentNode.parentNode.children[3]
             const selectedRow = items[index-1]
 
             const res = addQuantity(selectedRow)
