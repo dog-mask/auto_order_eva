@@ -27,3 +27,6 @@ export const addNecessaryQuantity = (selectedRow) => {
 export const addProduct = (item) => {
     return axios.post(host+port+"/add-product",item)
 }
+export const plusQuantity = () => {
+    return axios.post(host+port+"/plus-quan")
+}

@@ -25,11 +25,16 @@
       <b-button type="submit" variant="primary">추가</b-button>
       <b-button type="reset" variant="danger">재입력</b-button>
     </b-form>
+  <b-row>
+    <b-col>
+      <b-button size="sm" class="mr-2" @click="plusQuan">주문수량 재고에 합하기</b-button>
+    </b-col>
+  </b-row>  
   </div>
 </template>
 
 <script>
-import {addProduct} from '../service'
+import {addProduct, plusQuantity} from '../service'
   export default {
     data() {
       return {
@@ -54,6 +59,10 @@ import {addProduct} from '../service'
         // Reset our form values
         this.form.name = ''
         this.form.code = ''
+      },
+      plusQuan(){
+        plusQuantity()
+        this.$router.replace("/")
       }
     }
   }

@@ -168,4 +168,22 @@ public class ModyQuanController {
         productEntity.setOrderCode(quanDTO.getCode());
         productRepository.save(productEntity);
     }
+
+    @PostMapping("/plus-quan")
+    public void plusQuan(){
+        int quan;
+        int order;
+        int total;
+        List<ProductEntity> all = productRepository.findAll();
+        for (ProductEntity product:all) {
+            quan = product.getQuantity();
+            order = product.getOrderQuantity();
+            total = quan+order;
+            product.setQuantity(total);
+            product.setOrderQuantity(0);
+            productRepository.save(product);
+        }
+    }
+
+
 }
