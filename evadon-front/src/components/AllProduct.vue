@@ -56,6 +56,19 @@ export default {
         const ret = await getAllProduct()
         this.items = ret.data
     },
+    async beforeUpdate(){
+        const ret = await getAllProduct()
+        this.items = ret.data
+    },
+    async updated(){
+        console.log("updated")
+    },
+    async beforeMount(){
+        console.log("beforeMount")
+    },
+    async mounted(){
+        console.log("mounted")
+    },
     methods: {
         popQuantity(event){
             const items = this.items

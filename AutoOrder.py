@@ -19,10 +19,12 @@ host = "http://34.64.252.46:8080"
 # 수발주 사이트 자동로그인 로직
 URL = 'https://subalju.com/default.aspx'
 driverPath = os.getcwd()
+# path = 'C:/Users/ZED-POS/Desktop/python-3.7.5-embed-win32/auto_order_eva/chromedriver'
+path = driverPath+'/Desktop/my_study/auto_order/chromedriver'
 print("path : "+driverPath)
 
 # 크롬 웹드라이버 파일 호출
-driver = webdriver.Chrome(executable_path=driverPath+'/chromedriver')
+driver = webdriver.Chrome(executable_path=path)
 driver.get(url=URL)
 
 # 로그인 정보 입력
@@ -56,10 +58,6 @@ for handle in main:
 # 팝업창 닫기 완료 후 다시 메인 창으로 포커싱
 driver.switch_to_window(driver.window_handles[0])
 
-
-
-
-
 # 재고목록 불러오기
 db_response = requests.post(host+"/get_db")
 db_data = db_response.json()
@@ -71,40 +69,33 @@ quantity_input_id = 'ctl00_Order_holder_GV_ctl02_txt_qty02'
 
 
 for product in db_data: 
-# 주문수량 = (1일 평균 사용량) * 4 - 현재 재고    
+# 주문수량 = 필요재고량 - 현재 재고    
     order_count = (product["necessaryQuantity"])-product["quantity"]
     db_order_count = order_count
     # 생등심 발주량을 2로 나눔
     if(product["id"]==13):
-        if(product["quantity"] % 2 == 0):
-            order_count = product["quantity"] // 2
-        if(product["quantity"] % 2 == 1):
-            order_count = product["quantity"] // 2 + 1
+        if(order_count % 2 == 0):
+            order_count = order_count // 2
+        if(order_count % 2 == 1):
+            order_count = order_count // 2 + 1
         db_order_count = order_count * 2
-    # 우동면을 8로 나눈 몫이 박스단위의 현재 재고이므로 총 4박스의 재고를 만들게끔 발주
+
+# 우동면을 8로 나눈 몫이 박스단위의 현재 재고이므로 총 4박스의 재고를 만들게끔 발주
     if(product["id"]==5):
-        if(product["quantity"] // 8 == 0):
-            order_count = 4
-        elif(product["quantity"] // 8 == 1):
-            order_count = 3
-        elif(product["quantity"] // 8 == 2):
-            order_count = 2
-        elif(product["quantity"] // 8 == 3 and product["quantity"] % 8 < 8):
-            order_count = 1
-        # 데이터베이스에 박스단위가 아닌 낱개 단위로 저장
+        if(order_count % 8 == 0):
+            order_count = order_count // 8
+        elif(order_count % 8 < 8):
+            order_count = order_count // 8 + 1
+# 데이터베이스에 박스단위가 아닌 낱개 단위로 저장
         db_order_count = order_count * 8
-        # elif(product["quantity"] / 8 == 4):
-        #     order_count = 0
-    # 통모짜를 6으로 나눈 몫이 박스단위의 현재 재고이므로 총 2박스의 재고를 만들게끔 발주
+# 통모짜를 6으로 나눈 몫이 박스단위의 현재 재고이므로 총 2박스의 재고를 만들게끔 발주
     if(product["id"]==11):
-        if(product["quantity"]//6 == 0):
-            order_count = 2
-        elif(product["quantity"]//6 == 1 and (product["quantity"] % 6) < 6):
-            order_count = 1  
-        # 데이터베이스에 박스단위가 아닌 낱개 단위로 저장
+        if(order_count % 6 == 0):
+            order_count = order_count // 6
+        elif(order_count % 6 < 6):
+            order_count = order_count // 6 + 1  
+# 데이터베이스에 박스단위가 아닌 낱개 단위로 저장
         db_order_count = order_count * 6
-        # elif(product["quantity"] / 6 == 2):
-        #     order_count = 0
 # 목표재고량보다 현재 재고수량이 적으면 주문실행
     if(order_count <= 0):
         requests.post(host+"/init-order-count",json={"id":product["id"],"orderQuantity":0})
@@ -141,5 +132,3 @@ for product in db_data:
 
 
 driver.find_element_by_id("ctl00_Order_holder_Btn_save").click()
-
-
