@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ModyQuanController {
@@ -183,6 +184,19 @@ public class ModyQuanController {
             product.setOrderQuantity(0);
             productRepository.save(product);
         }
+    }
+
+    @PostMapping("/findId")
+    public ProductEntity findId(@RequestBody QuanDTO quanDTO){
+        System.out.println(quanDTO);
+        return productRepository.findById(quanDTO.getId()).get();
+    }
+
+    @PostMapping("/modyCode")
+    public void modyProduct(@RequestBody QuanDTO quanDTO) {
+        ProductEntity productEntity1 = productRepository.findById(quanDTO.getId()).get();
+        productEntity1.setOrderCode(quanDTO.getCode());
+        productRepository.save(productEntity1);
     }
 
 

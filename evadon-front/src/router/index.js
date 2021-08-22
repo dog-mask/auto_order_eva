@@ -6,6 +6,7 @@ import CookProduct from '@/components/CookProduct'
 import OnedayNeed from '@/components/OnedayNeed'
 import NecessaryQuantity from '@/components/NecessaryQuantity'
 import AddProduct from '@/components/AddProduct'
+import ItemDetail from '@/components/ItemDetail'
 
 Vue.use(Router)
 
@@ -41,5 +42,10 @@ export default new Router({
       name: 'addProduct',
       component : AddProduct
     },
+    {
+      path: '/item/detail/:id',
+      name: 'itemDetail',
+      component : ItemDetail
+    }
   ]
 })

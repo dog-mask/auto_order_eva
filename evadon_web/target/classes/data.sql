@@ -92,4 +92,6 @@ INSERT INTO product (name,order_code)
 	   	    VALUE('종이컵',"06515");
 INSERT INTO product (name,order_code)
 	   	    VALUE('냅킨',"08002");
+INSERT INTO product (name,order_code)
+	   	    VALUE('휘핑크림',"04510");
 
