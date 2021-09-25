@@ -22,7 +22,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">추가</b-button>
+      <b-button type="submit" variant="primary">수정</b-button>
       <b-button type="reset" variant="danger">불러오기</b-button>
     </b-form>
   </div>

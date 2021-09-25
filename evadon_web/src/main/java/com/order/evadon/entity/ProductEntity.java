@@ -16,8 +16,12 @@ public class ProductEntity {
     int id;
     String name;
     int quantity;
+    @Column(name = "order_quantity")
     int orderQuantity;
+    @Column(name = "order_code")
     String orderCode;
+    @Column(name = "oneday_need")
     double onedayNeed;
+    @Column(name = "necessary_quantity")
     int necessaryQuantity;
 }
