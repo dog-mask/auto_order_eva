@@ -1,4 +1,3 @@
-
 create table if not exists product (
     id int not null AUTO_INCREMENT PRIMARY KEY,
     name varchar(20) not null,

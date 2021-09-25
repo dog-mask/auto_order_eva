@@ -1,6 +1,6 @@
 <template>
     <div>
-    <b-table striped dark hover :items="items" :fields="fields">
+    <b-table striped dark hover :items="items" :fields="fields" @row-clicked="rowClick">
         <template #cell(mody_quantity)>
             <b-row>
                 <b-col>
@@ -55,10 +55,28 @@ export default {
     async created(){
         const ret = await getAllProduct()
         this.items = ret.data
+        console.log("created")
+    },
+    beforeCreate(){
+        console.log("beforeCreate")
+    },
+    beforeMount(){
+        console.log("beforeMount")
+    },
+    mounted(){
+        console.log("mounted")
     },
     async beforeUpdate(){
-        const ret = await getAllProduct()
-        this.items = ret.data
+        console.log("beforeUpdate")
+    },
+    updated(){
+        console.log("updated")
+    },
+    beforeDestroy(){
+        console.log("beforeDestroy")
+    },
+    destroyed(){
+        console.log("destroyed")
     },
     methods: {
         popQuantity(event){
@@ -90,7 +108,11 @@ export default {
                let quantity = Number(quan.innerText)
                quan.innerText=quantity+1
             }
-
+        },
+        rowClick(item,index,event){
+            this.$router.push({
+                path : `/item/detail/${item.id}`
+            })
         }
     }
     

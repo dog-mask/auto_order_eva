@@ -101,7 +101,31 @@ export default {
             }
             return result
             
-        }
+        },
+        created(){
+        console.log("created")
+      },
+      beforeCreate(){
+        console.log("beforeCreate")
+      },
+      beforeMount(){
+        console.log("beforeMount")
+      },
+      mounted(){
+        console.log("mounted")
+      },
+      beforeUpdate(){
+        console.log("beforeUpdate")
+      },
+      updated(){
+        console.log("updated")
+      },
+      beforeDestroy(){
+        console.log("beforeDestroy")
+      },
+      destroyed(){
+        console.log("destroyed")
+      },
     }
 }
 </script>

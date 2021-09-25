@@ -1,5 +1,5 @@
 import axios from 'axios';
-// const host = "http://localhost"
+//const host = "http://localhost"
 const host = "http://34.64.252.46"
 const port = ":8080"
 
@@ -30,3 +30,10 @@ export const addProduct = (item) => {
 export const plusQuantity = () => {
     return axios.post(host+port+"/plus-quan")
 }
+export const findId = (index) => {
+    return axios.post(host+port+"/findId",index)
+}
+export const modyCode = (item) => {
+    return axios.post(host+port+"/modyCode",item)
+}
+
