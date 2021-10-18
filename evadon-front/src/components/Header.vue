@@ -1,7 +1,7 @@
 <template>
     <div>
   <b-navbar toggleable="lg" type="dark" variant="info">
-    <b-navbar-brand to="/">Eva-auto</b-navbar-brand>
+    <b-navbar-brand to="/" @click="reflash">Eva-auto</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -20,6 +20,11 @@
 
 <script>
 export default {
-    name: 'Header'
+    name: 'Header',
+    methods:{
+      reflash(){
+        this.$router.replace("/")
+      }
+    }
 }
 </script>

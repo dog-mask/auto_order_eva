@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--    참고 링크   -->
+    <!--https://romeoh.tistory.com/entry/Spring-Boot-Logback-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0-->
+
+
+    <!--로그 파일 저장 위치-->
+    <springProfile name="alpha">
+        <property name="LOGS_PATH" value="./logs/alpha/"/>
+        <property name="LOGS_PATTERN"
+                  value="[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{50} - %msg%n"/>
+    </springProfile>
+
+    <springProfile name="test">
+        <property name="LOGS_PATH" value="./logs/test/"/>
+        <property name="LOGS_PATTERN"
+                  value="[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{50} - %msg%n"/>
+    </springProfile>
+
+    <springProfile name="beta">
+        <property name="LOGS_PATH" value="./logs/"/>
+        <property name="LOGS_PATTERN"
+                  value="[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{50} - %msg%n"/>
+    </springProfile>
+
+    <!--    appender    -->
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{HH:mm} %-5level %logger{50} - %msg%n</Pattern>
+        </layout>
+    </appender>
+
+
+    <appender name="SAMPLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOGS_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="DAILY_ROLLING_FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_PATH}/logback.log</file>
+        <encoder>
+            <pattern>${LOGS_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS_PATH}/%d{yyyy-mm-dd}/logback.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>10MB</maxFileSize>
+                <!-- kb, mb, gb -->
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+
+    <!--    </logger>   -->
+    <springProfile name="test,alpha">
+        <logger name="com.order.evadon.Interceptor" level="INFO">
+            <appender-ref ref="DAILY_ROLLING_FILE_APPENDER"/>
+        </logger>
+        <logger name="com.order.evadon.ModyQuanController" level="INFO">
+            <appender-ref ref="DAILY_ROLLING_FILE_APPENDER"/>
+        </logger>
+        <logger name="org.hibernate.SQL" level="TRACE">
+            <appender-ref ref="DAILY_ROLLING_FILE_APPENDER"/>
+        </logger>
+        <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE">
+            <appender-ref ref="DAILY_ROLLING_FILE_APPENDER"/>
+        </logger>
+        <logger name="org.hibernate.type.descriptor.sql.BasicExtractor" level="TRACE">
+            <appender-ref ref="DAILY_ROLLING_FILE_APPENDER"/>
+        </logger>
+    </springProfile>
+
+    <springProfile name="alpha,test">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+</configuration>

@@ -7,7 +7,6 @@
           id="input-3"
           v-model="form.name"
           type="상품명"
-          placeholder="상품명"
           required
         ></b-form-input>
       </b-form-group>
@@ -17,7 +16,6 @@
         <b-form-input
           id="input-4"
           v-model="form.code"
-          placeholder="상품코드"
           required
         ></b-form-input>
       </b-form-group>
@@ -25,6 +23,7 @@
       <b-button type="submit" variant="primary">수정</b-button>
       <b-button type="reset" variant="danger">불러오기</b-button>
     </b-form>
+    {{a}}
   </div>
 </template>
 
@@ -37,6 +36,16 @@ import {findId,modyCode} from '../service'
           name: '',
           code: '',
         },
+        props:{
+          a:{
+            type:String,
+            default:""
+          },
+          b:{
+            type:Number,
+            default:0
+          }
+        }
       }
     },
     methods: {

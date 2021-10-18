@@ -83,7 +83,7 @@ INSERT INTO product (name,order_code)
 INSERT INTO product (name,order_code)
 	   	    VALUE('쌀',"06001");
 INSERT INTO product (name,order_code)
-	   	    VALUE('식용유',"00003");
+	   	    VALUE('식용유',"00035");
 INSERT INTO product (name,order_code)
 	   	    VALUE('젓가락',"08003");
 INSERT INTO product (name,order_code)

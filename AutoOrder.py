@@ -13,7 +13,7 @@ import requests
 import os
     
 
-host = "http://34.64.252.46:8080"
+host = "http://sloth11.iptime.org:8080"
 # host = "http://localhost:8080"
 
 # 수발주 사이트 자동로그인 로직

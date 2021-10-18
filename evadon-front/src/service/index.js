@@ -1,6 +1,6 @@
 import axios from 'axios';
-//const host = "http://localhost"
-const host = "http://34.64.252.46"
+const host = "http://localhost"
+//const host = "sloth11.iptime.org"
 const port = ":8080"
 
 export const getAllProduct = ()=>{
@@ -8,6 +8,7 @@ export const getAllProduct = ()=>{
 }
 export const popQuantity = (selectedRow) => {
     return axios.post(host+port+"/pop",selectedRow)
+    
 }
 export const addQuantity = (selectedRow) => {
     return axios.post(host+port+"/add",selectedRow)

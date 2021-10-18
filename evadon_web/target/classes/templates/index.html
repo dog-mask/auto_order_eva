@@ -20,7 +20,7 @@
 
     <td th:text="${list.getId()}"></td>
     <td> </td>
-    <td th:text="${list.getName()}"></td>
+    <td><a th:text="${list.getName()}"></a></td>
     <td> </td>
     <td th:id="|quan${list.getId()}|" th:text="${list.getQuantity()}"></td>
     <td> </td>
