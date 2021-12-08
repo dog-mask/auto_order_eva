@@ -20,8 +20,8 @@ host = "http://sloth11.iptime.org:8080"
 URL = 'https://subalju.com/default.aspx'
 driverPath = os.getcwd()
 # path = 'C:/Users/ZED-POS/Desktop/python-3.7.5-embed-win32/auto_order_eva/chromedriver'
-path = driverPath+'/Desktop/my_study/auto_order/chromedriver'
-print("path : "+driverPath)
+path = driverPath+'/chromedriver'
+print("path : "+path)
 
 # 크롬 웹드라이버 파일 호출
 driver = webdriver.Chrome(executable_path=path)

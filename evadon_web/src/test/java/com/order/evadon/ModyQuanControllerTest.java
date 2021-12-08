@@ -3,6 +3,7 @@ package com.order.evadon;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.order.evadon.entity.ProductEntity;
 import com.order.evadon.repository.ProductRepository;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -55,7 +56,6 @@ class ModyQuanControllerTest {
     @Autowired
     private WebApplicationContext ctx;
 
-
     @BeforeEach
     public void setUp() {
         //MockMvc add utf-8 설정
@@ -105,4 +105,65 @@ class ModyQuanControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("이미 재고가 0개 입니다."));
     }
 
+    @DisplayName("재고 1개 추가 버튼")
+    @Test
+    void add() throws Exception{
+        Logger logger = LoggerFactory.getLogger(this.getClass());
+        QuanDTO quanDTO = new QuanDTO();
+        quanDTO.setId(1);
+        ProductEntity productEntity = new ProductEntity(3, "우동", 1, 0, "0001", 2, 8);
+        productRepository.save(productEntity);
+        productRepository.flush();
+        logger.info("================ {} ============", "재고 1개 추가");
+        mockMvc.perform(
+                        post("/add")
+                                .content(objectMapper.writeValueAsString(
+                                        productRepository.findById(quanDTO.getId()).get()
+                                ))
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.content().string("ok"));
+
+    }
+
+    @Test
+    void getDb() {
+
+
+    }
+
+    @Test
+    void addOption() {
+    }
+
+    @Test
+    void popOptions() {
+    }
+
+    @Test
+    void addOrderCount() {
+    }
+
+    @Test
+    void popNecessaryQuantity() {
+    }
+
+    @Test
+    void addNecessaryQuantity() {
+    }
+
+    @Test
+    void addProduct() {
+    }
+
+    @Test
+    void findId() {
+    }
+
+    @Test
+    void modyProduct() {
+    }
 }
